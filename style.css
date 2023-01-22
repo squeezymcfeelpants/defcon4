@@ -1,0 +1,88 @@
+:root {
+	--app-color-bg: #333;
+
+	--game-cell-size: 80px;
+	--game-cell-pad-tb: 10px;
+	--game-cell-pad-lr: 15px;
+
+	--game-board-color: hsl(210, 60%, 45%);
+	--game-board-color-border: hsl(210, 60%, 25%);
+
+	--game-token-color-1: hsl(0, 65%, 50%);
+	--game-token-color-1-dark: hsl(0, 65%, 30%);
+	--game-token-color-2: hsl(60, 65%, 50%);
+	--game-token-color-2-dark: hsl(60, 65%, 30%);
+}
+
+*, *::before, *::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: var(--app-color-bg);
+}
+
+.gameboard {
+	margin: 0 auto;
+	width: fit-content;
+}
+
+.gameboard-dropzone {
+	padding-left: 1rem;
+
+}
+.gameboard-grid {
+	padding: 1rem;
+	width: fit-content;
+	background-color: var(--game-board-color);
+	border: 6px solid var(--game-board-color-border);
+	border-radius: 20px 20px 0 0;
+}
+
+.grid-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.grid-cell {
+	--accent-color: #888;
+
+	margin: var(--game-cell-pad-tb) var(--game-cell-pad-lr);
+	height: var(--game-cell-size);
+	width: var(--game-cell-size);
+	border-radius: 50%;
+	border: 3px dashed var(--accent-color);
+	transition: all 100ms ease-in-out;
+}
+
+.dropper:hover {
+	cursor: pointer;
+}
+
+.marker-1 {
+	--accent-color: var(--game-token-color-1-dark);
+	background-color: var(--game-token-color-1);
+}
+
+.marker-2 {
+	--accent-color: var(--game-token-color-2-dark);
+	background-color: var(--game-token-color-2);
+}
+
+.winner {
+	animation: 200ms infinite alternate pulse;
+}
+
+
+@keyframes pulse {
+	from {
+		transform: scale(1.0);
+	}
+
+	to {
+		transform: scale(1.1);
+	}
+}
+

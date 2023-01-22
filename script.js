@@ -10,6 +10,7 @@ initGameState(gameState);
 
 buildGameboard();
 initDropZoneListeners();
+turnMessage();
 
 //=======================================================================
 
@@ -95,6 +96,16 @@ function initDropZoneListeners() {
 }
 
 //
+function message(msg) {
+	document.getElementById('message').textContent = msg;
+}
+
+//
+function turnMessage() {
+	message(`${gameState.isPlayer1Turn ? 'RED' : 'YELLOW'} Player's Turn`);
+}
+
+//
 function markDropZone(col, isPlayer1 = true) {
 	document.querySelectorAll('.dropper')
 		.forEach((e) => {
@@ -126,6 +137,7 @@ function dropToken(col, isPlayer1) {
 
 	// swap players in the game state
 	gameState.isPlayer1Turn = !gameState.isPlayer1Turn;
+	turnMessage();
 }
 
 //  returns winner (1 = player 1, 2 = player 2, 0 = none)
@@ -189,6 +201,8 @@ function showWinner(winData) {
 			marker.classList.add('winner');
 		}
 	}
+
+	message(`${(winData.mark == 1) ? 'RED' : 'YELLOW'} Player WINS!`);
 }
 
 //

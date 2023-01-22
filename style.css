@@ -22,6 +22,14 @@
 
 body {
 	background-color: var(--app-color-bg);
+	text-align: center;
+	color: #ccc;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 400;
+}
+
+h2 {
+	margin-top: 1rem;
 }
 
 .gameboard {

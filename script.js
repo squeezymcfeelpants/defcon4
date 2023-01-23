@@ -24,6 +24,7 @@ function initGameState(gs) {
 
 	gs.isPlayer1Turn = true;
 	gs.isPlaying = true;
+	gs.isTurnInProgress = false;
 }
 
 //
@@ -61,7 +62,7 @@ function initDropZoneListeners() {
 			//
 			e.addEventListener('mouseover', (ev) => {
 				const col = ev.target.dataset.col;
-				if (gameState.isPlaying && !gameState.grid[col][0]) {
+				if (gameState.isPlaying && !gameState.isTurnInProgress && !gameState.grid[col][0]) {
 					markDropZone(col, gameState.isPlayer1Turn);
 				}
 				else {
@@ -78,15 +79,9 @@ function initDropZoneListeners() {
 			e.addEventListener('click', (ev) => {
 				const col = ev.target.dataset.col;
 				// console.log(gameState.grid[col]);
-				if (gameState.isPlaying && !gameState.grid[col][0]) {
+				if (gameState.isPlaying && !gameState.isTurnInProgress && !gameState.grid[col][0]) {
 					dropToken(col, gameState.isPlayer1Turn);
 					markDropZone(col, gameState.isPlayer1Turn);
-
-					const winData = checkWinner();
-					if (winData) {
-						showWinner(winData);
-						endGame();
-					}
 				}
 				else {
 					// unable to play here
@@ -128,16 +123,30 @@ function dropToken(col, isPlayer1) {
 
 	--row;	// loop above finds the first spot taken, so bump it up one row
 	gridCol[row] = isPlayer1 ? 1 : 2;
-	
+
 	// update the UI (temp; just splat it in)
 	const marker = document.querySelector(`.marker[data-row="${row}"][data-col="${col}"]`);
 	if (marker) {
-		marker.classList.add(isPlayer1 ? 'marker-1' : 'marker-2');
-	}
+		marker.classList.add(isPlayer1 ? 'marker-1' : 'marker-2', `drop-${row}`);
 
-	// swap players in the game state
-	gameState.isPlayer1Turn = !gameState.isPlayer1Turn;
-	turnMessage();
+		gameState.isTurnInProgress = true;
+
+		setTimeout(() => {
+			marker.classList.remove('drop-0', 'drop-1', 'drop-2', 'drop-3', 'drop-4', 'drop-5');
+
+			gameState.isTurnInProgress = false;
+
+			// swap players in the game state
+			gameState.isPlayer1Turn = !gameState.isPlayer1Turn;
+			turnMessage();
+
+			const winData = checkWinner();
+			if (winData) {
+				showWinner(winData);
+				endGame();
+			}
+		}, (row * 150) + 200);
+	}
 }
 
 //  returns winner (1 = player 1, 2 = player 2, 0 = none)

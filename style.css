@@ -7,11 +7,19 @@
 
 	--game-board-color: hsl(210, 60%, 45%);
 	--game-board-color-border: hsl(210, 60%, 25%);
+	--game-board-padding-lr: 16px;
+	--game-board-border-width: 6px;
 
 	--game-token-color-1: hsl(0, 65%, 50%);
 	--game-token-color-1-dark: hsl(0, 65%, 30%);
 	--game-token-color-2: hsl(60, 65%, 50%);
 	--game-token-color-2-dark: hsl(60, 65%, 30%);
+	--game-token-border-width: 3px;
+
+	--token-offset-0: 119px;
+	--token-offset-spacing: calc(var(--game-cell-size) + 2 * var(--game-cell-pad-tb));
+
+	--drop-anim-time-ms: 150;
 }
 
 *, *::before, *::after {
@@ -38,11 +46,11 @@ h2 {
 }
 
 .gameboard-dropzone {
-	padding-left: 1rem;
+	padding-left: calc(var(--game-board-padding-lr) + var(--game-board-border-width) - var(--game-token-border-width));
 
 }
 .gameboard-grid {
-	padding: 1rem;
+	padding: 1rem var(--game-board-padding-lr);
 	width: fit-content;
 	background-color: var(--game-board-color);
 	border: 6px solid var(--game-board-color-border);
@@ -61,7 +69,7 @@ h2 {
 	height: var(--game-cell-size);
 	width: var(--game-cell-size);
 	border-radius: 50%;
-	border: 3px dashed var(--accent-color);
+	border: var(--game-token-border-width) dashed var(--accent-color);
 	transition: all 100ms ease-in-out;
 }
 
@@ -83,7 +91,6 @@ h2 {
 	animation: 200ms infinite alternate pulse;
 }
 
-
 @keyframes pulse {
 	from {
 		transform: scale(1.0);
@@ -94,3 +101,86 @@ h2 {
 	}
 }
 
+.drop-0 {
+	animation: calc(var(--drop-anim-time-ms) * 1 * 1ms) drop-0 ease-in;
+}
+
+.drop-1 {
+	animation: calc(var(--drop-anim-time-ms) * 2 * 1ms) drop-1 ease-in;
+}
+
+.drop-2 {
+	animation: calc(var(--drop-anim-time-ms) * 3 * 1ms) drop-2 ease-in;
+}
+
+.drop-3 {
+	animation: calc(var(--drop-anim-time-ms) * 4 * 1ms) drop-3 ease-in;
+}
+
+.drop-4 {
+	animation: calc(var(--drop-anim-time-ms) * 5 * 1ms) drop-4 ease-in;
+}
+
+.drop-5 {
+	animation: calc(var(--drop-anim-time-ms) * 6 * 1ms) drop-5 ease-in;
+}
+
+@keyframes drop-0 {
+	from {
+		transform: translateY(calc(0px - (var(--token-offset-0) + 0 * var(--token-offset-spacing))));
+	}
+
+	to {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes drop-1 {
+	from {
+		transform: translateY(calc(0px - (var(--token-offset-0) + 1 * var(--token-offset-spacing))));
+	}
+
+	to {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes drop-2 {
+	from {
+		transform: translateY(calc(0px - (var(--token-offset-0) + 2 * var(--token-offset-spacing))));
+	}
+
+	to {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes drop-3 {
+	from {
+		transform: translateY(calc(0px - (var(--token-offset-0) + 3 * var(--token-offset-spacing))));
+	}
+
+	to {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes drop-4 {
+	from {
+		transform: translateY(calc(0px - (var(--token-offset-0) + 4 * var(--token-offset-spacing))));
+	}
+
+	to {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes drop-5 {
+	from {
+		transform: translateY(calc(0px - (var(--token-offset-0) + 5 * var(--token-offset-spacing))));
+	}
+
+	to {
+		transform: translateY(0px);
+	}
+}
